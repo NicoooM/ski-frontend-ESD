@@ -16,10 +16,7 @@ import CreateShop from "../../components/shop/CreateShop";
 const SingleShopPage = () => {
   const { id } = useParams();
   const [shop, setShop] = useState(null);
-  const [showShop, setShowShop] = useState(false);
   const [editShop, setEditShop] = useState(true);
-  const [password, setPassword] = useState("");
-  const [passwordError, setPasswordError] = useState(false);
   const [post, setPost] = useState({
     title: "",
     price: 0,
@@ -29,22 +26,8 @@ const SingleShopPage = () => {
     style: "",
   });
 
-  const onChangePassword = (e) => {
-    setPassword(e.target.value);
-    setPasswordError(false);
-  };
-
   const onChangePost = (e) => {
     setPost({ ...post, [e.target.name]: e.target.value });
-  };
-
-  const onSubmitPassword = (e) => {
-    e.preventDefault();
-    if (password === shop.password) {
-      setShowShop(true);
-    } else {
-      setPasswordError(true);
-    }
   };
 
   const onCreatePost = (e) => {
@@ -82,42 +65,6 @@ const SingleShopPage = () => {
         });
     }
   }, [id, editShop]);
-
-  if (!showShop && shop) {
-    return (
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "calc(100vh - 55px)",
-        }}
-        component="form"
-        onSubmit={onSubmitPassword}
-      >
-        <Box>
-          <CardMedia
-            image={shop.logo}
-            sx={{ height: 140, width: 140, mx: "auto", mb: 2 }}
-          />
-          <TextField
-            label="Mot de passe"
-            value={password}
-            onChange={onChangePassword}
-            error={passwordError}
-            helperText={passwordError && "Mot de passe incorrect"}
-          />
-          <Button
-            type="submit"
-            variant="contained"
-            sx={{ mt: 2, display: "block", py: 2 }}
-          >
-            Accéder à la boutique
-          </Button>
-        </Box>
-      </Box>
-    );
-  }
 
   return (
     <>

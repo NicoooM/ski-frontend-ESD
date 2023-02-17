@@ -1,5 +1,12 @@
 import axios from "axios";
 
+const config = {
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: "Bearer " + localStorage.getItem("token"),
+  },
+};
+
 const getAllPosts = async (
   filter = {
     search: "",
@@ -23,21 +30,27 @@ const getOnePost = async (id) => {
 };
 
 const createPost = async (data) => {
-  const response = await axios.post(`${process.env.REACT_APP_API}/posts`, data);
+  const response = await axios.post(
+    `${process.env.REACT_APP_API}/posts`,
+    data,
+    config
+  );
   return response.data;
 };
 
 const updatePost = async (id, data) => {
   const response = await axios.patch(
     `${process.env.REACT_APP_API}/posts/${id}`,
-    data
+    data,
+    config
   );
   return response.data;
 };
 
 const deletePost = async (id) => {
   const response = await axios.delete(
-    `${process.env.REACT_APP_API}/posts/${id}`
+    `${process.env.REACT_APP_API}/posts/${id}`,
+    config
   );
   return response.data;
 };

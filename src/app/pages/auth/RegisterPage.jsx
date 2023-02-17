@@ -1,9 +1,9 @@
 import { Box, Button, FormGroup, TextField, Typography } from "@mui/material";
 import { useState } from "react";
-import { login } from "../../../setup/services/auth.service";
+import { register } from "../../../setup/services/auth.service";
 import { useNavigate } from "react-router-dom";
 
-const SigninPage = () => {
+const RegisterPage = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState({
     email: "",
@@ -17,9 +17,8 @@ const SigninPage = () => {
   const onSubmitForm = async (e) => {
     e.preventDefault();
     try {
-      const res = await login(user);
-      localStorage.setItem("token", res.token);
-      navigate("/");
+      await register(user);
+      navigate("/auth/signin");
     } catch (error) {
       console.log(error);
     }
@@ -27,7 +26,7 @@ const SigninPage = () => {
 
   return (
     <Box>
-      <Typography variant="h1">Signin</Typography>
+      <Typography variant="h1">Register</Typography>
       <Box component={"form"} onSubmit={onSubmitForm}>
         <FormGroup>
           <TextField
@@ -50,11 +49,11 @@ const SigninPage = () => {
           />
         </FormGroup>
         <Button type="submit" variant="contained">
-          Connexion
+          S'inscrire
         </Button>
       </Box>
     </Box>
   );
 };
 
-export default SigninPage;
+export default RegisterPage;

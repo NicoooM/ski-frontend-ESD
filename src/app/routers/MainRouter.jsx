@@ -1,4 +1,5 @@
 import { Route, Routes } from "react-router-dom";
+import RegisterPage from "../pages/auth/RegisterPage";
 import SigninPage from "../pages/auth/SigninPage";
 import HomePage from "../pages/posts/HomePage";
 import SinglePostPage from "../pages/posts/SinglePostPage";
@@ -13,6 +14,7 @@ const MainRouter = () => {
       <Route path="/creation-boutique" element={<CreateShopPage />} />
       <Route path="/boutique/:id" element={<SingleShopPage />} />
       <Route path="/auth/signin" element={<SigninPage />} />
+      <Route path="/auth/register" element={<RegisterPage />} />
     </Routes>
   );
 };

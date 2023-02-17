@@ -9,7 +9,6 @@ const CreateShop = ({ data, edit, setEditShop }) => {
     name: data?.name || "",
     address: data?.address || "",
     logo: data?.logo || "",
-    password: data?.password || "",
   });
 
   const onChangeShop = (e) => {
@@ -63,13 +62,6 @@ const CreateShop = ({ data, edit, setEditShop }) => {
           onChange={onChangeShop}
           value={shop.logo}
           name="logo"
-        />
-        <TextField
-          label="Mot de passe"
-          sx={{ width: "50%" }}
-          onChange={onChangeShop}
-          value={shop.password}
-          name="password"
         />
       </Box>
       <Button type="submit" variant="contained">
