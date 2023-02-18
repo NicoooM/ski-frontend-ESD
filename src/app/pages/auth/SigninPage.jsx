@@ -1,9 +1,13 @@
 import { Box, Button, FormGroup, TextField, Typography } from "@mui/material";
-import { useState } from "react";
-import { login } from "../../../setup/services/auth.service";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getMe, login } from "../../../setup/services/auth.service";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { updateUser } from "../../redux/userSlice";
 
 const SigninPage = () => {
+  const dispatch = useDispatch();
+  const userData = useSelector((state) => state.user.value);
   const navigate = useNavigate();
   const [user, setUser] = useState({
     email: "",
@@ -19,11 +23,18 @@ const SigninPage = () => {
     try {
       const res = await login(user);
       localStorage.setItem("token", res.token);
+      console.log(localStorage.getItem("token"));
+      const me = await getMe();
+      dispatch(updateUser(me));
       navigate("/");
     } catch (error) {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    console.log(userData);
+  }, [userData]);
 
   return (
     <Box>
@@ -52,6 +63,9 @@ const SigninPage = () => {
         <Button type="submit" variant="contained">
           Connexion
         </Button>
+        <Typography variant="p" to="/auth/mot-de-passe-oublie" component={Link}>
+          Mot de passe oublié ?
+        </Typography>
       </Box>
     </Box>
   );

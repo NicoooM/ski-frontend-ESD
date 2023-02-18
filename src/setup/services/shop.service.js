@@ -1,17 +1,11 @@
 import axios from "axios";
-
-const config = {
-  headers: {
-    "Content-Type": "application/json",
-    Authorization: "Bearer " + localStorage.getItem("token"),
-  },
-};
+import config from "../config/axios.config";
 
 const createShop = async (data) => {
   const response = await axios.post(
     `${process.env.REACT_APP_API}/shops`,
     data,
-    config
+    config()
   );
   return response.data;
 };
@@ -19,7 +13,7 @@ const createShop = async (data) => {
 const getShop = async (id) => {
   const response = await axios.get(
     `${process.env.REACT_APP_API}/shops/${id}`,
-    config
+    config()
   );
   return response.data;
 };
@@ -28,7 +22,7 @@ const updateShop = async (id, data) => {
   const response = await axios.patch(
     `${process.env.REACT_APP_API}/shops/${id}`,
     data,
-    config
+    config()
   );
   return response.data;
 };

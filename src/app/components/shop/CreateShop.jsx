@@ -1,9 +1,13 @@
 import { Button, TextField, Box } from "@mui/material";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { getMe } from "../../../setup/services/auth.service";
 import { createShop, updateShop } from "../../../setup/services/shop.service";
+import { updateUser } from "../../redux/userSlice";
 
 const CreateShop = ({ data, edit, setEditShop }) => {
+  const dispacth = useDispatch();
   const navigate = useNavigate();
   const [shop, setShop] = useState({
     name: data?.name || "",
@@ -29,6 +33,9 @@ const CreateShop = ({ data, edit, setEditShop }) => {
     } else {
       createShop(shop)
         .then((data) => {
+          getMe().then((user) => {
+            dispacth(updateUser(user));
+          });
           navigate(`/boutique/${data._id}`);
         })
         .catch((err) => {
